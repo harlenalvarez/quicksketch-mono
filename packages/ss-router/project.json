@@ -1,0 +1,9 @@
+{
+  "name": "ss-router",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/ss-router/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project ss-router --web",
+  "targets": {}
+}
