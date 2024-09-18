@@ -1,6 +1,4 @@
-![rck logo](rck.png)
-
-# Quicksketch and RCK (react-canvas-kit v2)
+# ![rck logo](rck.png) Quicksketch and RCK (react-canvas-kit v2)
 
 Quicksketch is a straightforward multi-collaboration tool, similar to Miro or Excalidraw. The main idea is to offer a free and easy-to-use platform for creating system diagrams. It’s also an opportunity to showcase the new RCK libraries, which I’m building from scratch as the v2 of react-canvas-kit.
 If you're curious about the original version, you can find the V1 documentation at [react-canvas-kit](https://reactcanvaskit.com). The new version introduces several important updates. First, I'm reworking the render pipeline. In V1, the render logic was quite basic, allowing requestRedraw to be called from anywhere. In v2, you'll be able to target specific layers for redrawing, even handle offline rendering (outside of the main thread), and eventually batch redraw calls to fit within a single animation frame for better performance. The goal is to make the rendering more efficient and flexible without needing users to manually manage animation frames.
