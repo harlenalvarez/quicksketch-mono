@@ -1,16 +1,16 @@
 {
-  "name": "@qsketch/ss-router",
-  "version": "0.0.2",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "name": "@qsketch/rck",
+  "version": "0.0.1",
   "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Harlen Alvarez",
     "email": "harlenalvarez@gmail.com",
     "url": "https://github.com/harlenalvarez"
   },
-  "module": "./index.js",
   "exports": {
     ".": {
       "types": "./index.d.ts",

@@ -1,14 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { navigateTo, Route, Router } from '@qsketch/ss-router';
 import styles from './app.module.css';
+import { CanvasPage } from './pages';
 export function App() {
   return (
     <Router>
       <Route path={['/', '/home']} >
-        <div>
-          <h1>Welcome to QuickSketch!</h1>
-          <button onClick={() => navigateTo({ path: '/about' })}>Go into About</button>
-        </div>
+        <CanvasPage />
       </Route>
       <Route path="/about">
         <h1>About</h1>

@@ -1,0 +1,68 @@
+.rckProviderLayout {
+  z-index: 0;
+  position: relative;
+  min-width: 100%;
+}
+
+/* RCK Action */
+.rckAction {
+  z-index: 1;
+  position: fixed;
+  display: flex;
+  align-items: stretch;
+}
+
+.rckAction:focus-visible {
+  outline: none;
+}
+
+/* RCK Popover */
+.rckPopover {
+  position: fixed;
+  z-index: 0;
+}
+
+/* RCK Scene */
+.rckScene {
+  position: fixed;
+  z-index: 0;
+}
+
+.rckScene:focus-visible {
+  outline: none;
+}
+
+.rckScene.dots {
+  background-image: radial-gradient(circle at center, #e1e1e1 max(1px, 5%), transparent 0);
+  background-size: 32px 32px;
+  background-position: -1% -1%;
+}
+
+.rckScene.dots.dark {
+  background-image: radial-gradient(circle at center, #2a2a2a max(1px, 5%), transparent 0);
+}
+
+.rckScene.grid {
+  background-image:
+    linear-gradient(to right, #e1e1e1 max(1px, 2%), transparent max(1px, 2%)),
+    linear-gradient(to bottom, #e1e1e1 max(1px, 2%), transparent max(1px, 2%));
+  background-size: 68px 68px;
+}
+
+.rckScene.grid.dark {
+  background-image: 
+    linear-gradient(to right, #868686a2 max(1px, 2%), transparent max(1px, 2%)),
+    linear-gradient(to bottom, #868686a2 max(1px, 2%), transparent max(1px, 2%));
+  /** set background image opacity */
+  
+}
+
+/* RCK Portal */
+.rckPortal {
+  z-index: 2;
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

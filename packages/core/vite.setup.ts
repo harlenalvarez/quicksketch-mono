@@ -1,36 +1,45 @@
 import { afterAll, beforeAll, vi } from 'vitest';
+
+class Custom2DDomMatrix {
+  a = 1;
+  b = 0;
+  c = 0;
+  d = 1;
+  e = 0;
+  f = 0;
+
+  constructor(init?: [number, number, number, number, number, number]) {
+    if (init) {
+      this.a = init[0];
+      this.b = init[1];
+      this.c = init[2];
+      this.d = init[3];
+      this.e = init[4];
+      this.f = init[5];
+    }
+
+  }
+
+  transformPoint = (point: DOMPointInit) => {
+    const scaleReciprocalX = 1 / (this.a / 1);
+    const scaleReciprocalY = 1 / (this.d / 1);
+
+    const scaleClientX = scaleReciprocalX === 1 ? point.x : point.x! * scaleReciprocalX;
+    const scaleClientY = scaleReciprocalY === 1 ? point.y : point.y! * scaleReciprocalY;
+
+    const newX = scaleClientX! - this.e / this.a
+    const newY = scaleClientY! - this.f / this.d
+    return { x: newX, y: newY };
+  }
+}
+
 beforeAll(() => {
   vi.stubGlobal('Path2D', vi.fn(() => ({
     rect: vi.fn(),
     roundRect: vi.fn()
   })));
 
-  vi.stubGlobal('DOMMatrix', vi.fn(() => ({
-    "a": 1,
-    "b": 0,
-    "c": 0,
-    "d": 1,
-    "e": 0,
-    "f": 0,
-    "m11": 1,
-    "m12": 0,
-    "m13": 0,
-    "m14": 0,
-    "m21": 0,
-    "m22": 1,
-    "m23": 0,
-    "m24": 0,
-    "m31": 0,
-    "m32": 0,
-    "m33": 1,
-    "m34": 0,
-    "m41": 0,
-    "m42": 0,
-    "m43": 0,
-    "m44": 1,
-    "is2D": true,
-    "isIdentity": true
-  })))
+  vi.stubGlobal('DOMMatrix', Custom2DDomMatrix);
 });
 
 afterAll(() => {

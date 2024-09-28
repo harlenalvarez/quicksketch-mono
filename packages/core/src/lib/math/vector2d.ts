@@ -10,8 +10,8 @@ export type Point = {
  */
 export class Vector2D implements Point {
   constructor(private _x: number, private _y: number) { }
-  private _normalized?: Vector2D;
-  private _magnitude?: number;
+  #_normalized?: Vector2D;
+  #_magnitude?: number;
 
   get x(): number {
     return this._x;
@@ -19,8 +19,8 @@ export class Vector2D implements Point {
 
   set x(value: number) {
     this._x = value;
-    this._normalized = undefined;
-    this._magnitude = undefined;
+    this.#_normalized = undefined;
+    this.#_magnitude = undefined;
   }
 
   get y(): number {
@@ -29,8 +29,8 @@ export class Vector2D implements Point {
 
   set y(value: number) {
     this._y = value;
-    this._normalized = undefined;
-    this._magnitude = undefined;
+    this.#_normalized = undefined;
+    this.#_magnitude = undefined;
   }
 
   /**
@@ -40,15 +40,15 @@ export class Vector2D implements Point {
    * @returns The unit vector.
    */
   get normalized(): Vector2D {
-    if (this._normalized) {
-      return this._normalized;
+    if (this.#_normalized) {
+      return this.#_normalized;
     }
     const magnitude = this.magnitude();
     if (magnitude === 0) {
       return Vector2D.zero;
     }
-    this._normalized = this.clone().multiply(1 / magnitude);
-    return this._normalized;
+    this.#_normalized = this.clone().multiply(1 / magnitude);
+    return this.#_normalized;
   }
 
   static get zero(): Vector2D {
@@ -61,8 +61,8 @@ export class Vector2D implements Point {
    */
   clone(): Vector2D {
     const cloned = new Vector2D(this.x, this.y);
-    if (this._normalized) {
-      cloned._normalized = this._normalized.clone();
+    if (this.#_normalized) {
+      cloned.#_normalized = this.#_normalized.clone();
     }
     return cloned;
   }
@@ -123,11 +123,11 @@ export class Vector2D implements Point {
       const deltaY = this.y - originVector.y;
       return Math.hypot(deltaX, deltaY);
     }
-    if (this._magnitude) {
-      return this._magnitude;
+    if (this.#_magnitude) {
+      return this.#_magnitude;
     }
-    this._magnitude = Math.hypot(this.x, this.y);
-    return this._magnitude;
+    this.#_magnitude = Math.hypot(this.x, this.y);
+    return this.#_magnitude;
   }
 
   /**

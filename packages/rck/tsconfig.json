@@ -9,7 +9,7 @@
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "composite": true,
-    "declaration": true
+    "declaration": true,
   },
   "files": [],
   "include": [],

@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@qsketch/core": ["packages/core/src/index.ts"],
+      "@qsketch/rck": ["packages/rck/src/index.ts"],
       "@qsketch/ss-router": ["packages/ss-router/src/index.ts"]
     }
   },
