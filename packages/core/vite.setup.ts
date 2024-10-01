@@ -7,6 +7,7 @@ class Custom2DDomMatrix {
   d = 1;
   e = 0;
   f = 0;
+  is2D = true;
 
   constructor(init?: [number, number, number, number, number, number]) {
     if (init) {
@@ -40,6 +41,7 @@ beforeAll(() => {
   })));
 
   vi.stubGlobal('DOMMatrix', Custom2DDomMatrix);
+  vi.stubGlobal('devicePixelRatio', 1);
 });
 
 afterAll(() => {
