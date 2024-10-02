@@ -50,7 +50,7 @@ export default defineConfig({
   test: {
     watch: false,
     globals: true,
-    environment: 'node',
+    environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: './vite.setup.ts',
     reporters: ['default'],
