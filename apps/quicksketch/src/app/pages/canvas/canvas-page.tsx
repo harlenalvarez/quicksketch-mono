@@ -1,8 +1,10 @@
-import { RckProvider } from '@qsketch/rck';
+import { RckScene } from '@qsketch/rck';
 export const CanvasPage = () => {
   return (
     <div>
-      <RckProvider background='grid' mode='light' />
+      <RckScene background='grid' mode='light'>
+        <div>Scene Manager</div>
+      </RckScene>
     </div>
   )
 }

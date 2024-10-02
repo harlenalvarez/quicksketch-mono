@@ -1,15 +1,16 @@
-import { useLayoutEffect, useMemo } from 'react';
+import { memo, useLayoutEffect, useMemo } from 'react';
+import { clsx, getRckStyle, registerSceneLayers } from '../internal';
+import type { Layers } from '../store';
+import styles from './rck-scene.module.css';
+import { Scene } from './scene';
 
-
-import { clsx, getRckStyle } from '../internal';
-import styles from './rck-provider.module.css';
-
-export type RckProviderProps = {
+export type RckScene = {
   children: React.ReactNode,
   /**
+   * List of named layers that will be rendered on the canvas.
    * layers are rendered in the order they are provided meaning the first layer will be the bottom most layer
    */
-  layers: string[],
+  layers?: Layers,
   /**
    * Use the offset to let the container know if you have a static positioned navbar
    */
@@ -25,7 +26,8 @@ export type RckProviderProps = {
   mode?: 'light' | 'dark'
 }
 
-export const RckProvider = ({ children, layers, offsetTop, mode, background = 'dots', backgroundColor = 'transparent' }: RckProviderProps) => {
+const RckScene = memo(({ children, layers = {}, offsetTop, mode, background = 'dots', backgroundColor = 'transparent' }: RckScene) => {
+  registerSceneLayers(layers);
   const fullScreenLayout = getRckStyle(offsetTop);
 
   useLayoutEffect(() => {
@@ -37,7 +39,7 @@ export const RckProvider = ({ children, layers, offsetTop, mode, background = 'd
         doc.style.top = `${offsetTop - topDiff}px`;
       }
     }
-  }, [offsetTop]);
+  }, [layers, offsetTop]);
 
   const sceneClass = useMemo(() => {
     const backgrounClass = styles[background];
@@ -53,9 +55,29 @@ export const RckProvider = ({ children, layers, offsetTop, mode, background = 'd
       </section>
       <section id='rck-popover-section' style={fullScreenLayout} tabIndex={0} className={styles.rckPopover} />
       <section id='rck-scene-section' style={sceneStyle} tabIndex={0} className={sceneClass}>
-        <div>Scene Goes Here</div>
+        <Scene offsetTop={offsetTop} />
       </section>
       <section id='rck-portal-section' className={styles.rckPortal} />
     </div>
   )
-}
+}, (prevProps: RckScene, nextProps: RckScene) => {
+  // Only check for layer keys
+  const layersName = new Set(Object.keys(prevProps.layers ?? {}));
+  const prevCount = layersName.size;
+  // add new layers and the size should be the same
+  for (const key of Object.keys(nextProps.layers ?? {})) {
+    layersName.add(key);
+  }
+  if (layersName.size !== prevCount) return false;
+
+  // check the rest of the props
+  if (prevProps.offsetTop !== nextProps.offsetTop) return false;
+  if (prevProps.mode !== nextProps.mode) return false;
+  if (prevProps.background !== nextProps.background) return false;
+  if (prevProps.backgroundColor !== nextProps.backgroundColor) return false;
+
+  return true;
+});
+
+RckScene.displayName = 'RckScene';
+export { RckScene };
