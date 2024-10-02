@@ -8,7 +8,9 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "composite": true,
+    "declaration": true,
   },
   "files": [],
   "include": [],

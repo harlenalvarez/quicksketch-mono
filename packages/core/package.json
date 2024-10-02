@@ -1,11 +1,16 @@
 {
   "name": "@qsketch/core",
   "version": "0.0.1",
-  "dependencies": {},
   "type": "module",
   "main": "./index.js",
   "module": "./index.js",
-  "typings": "./index.d.ts",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Harlen Alvarez",
+    "email": "harlenalvarez@gmail.com",
+    "url": "https://github.com/harlenalvarez"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",

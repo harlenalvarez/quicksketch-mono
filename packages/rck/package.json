@@ -17,5 +17,8 @@
       "import": "./index.js",
       "require": "./index.cjs"
     }
+  },
+  "peerDependencies": {
+    "@qsketch/core": "^0.0.1"
   }
 }
