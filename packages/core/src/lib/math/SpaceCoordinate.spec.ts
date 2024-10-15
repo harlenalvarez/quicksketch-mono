@@ -1,5 +1,5 @@
-import { spaceCoordinate } from './space-coordinate';
-import { Vector2D } from './vector2d';
+import { spaceCoordinate } from './SpaceCoordinate';
+import { Vector2D } from './Vector2d';
 
 describe('SpaceCoordinate', () => {
 

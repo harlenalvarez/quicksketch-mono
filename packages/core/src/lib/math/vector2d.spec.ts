@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Vector2D } from './vector2d';
+import { Vector2D } from './Vector2d';
 
 describe('Vector 2D', () => {
   it('Should new up clone', () => {

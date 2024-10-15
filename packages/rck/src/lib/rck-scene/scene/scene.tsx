@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { initSceneLayers, SceneLayersMap } from '../../internal';
+import { initSceneLayers, SceneLayersMap, useRckSettings } from '../../internal';
 import styles from './scene.module.css';
 
 type SceneProps = {
   offsetTop?: number,
 }
 export const Scene = ({ offsetTop }: SceneProps) => {
+  const { maintainAspectRatio } = useRckSettings()
   useEffect(() => {
     const height = window.innerHeight - (offsetTop || 0);
-    initSceneLayers(window.innerWidth, height);
-  }, [offsetTop]);
+    initSceneLayers(window.innerWidth, height, maintainAspectRatio);
+  }, [maintainAspectRatio, offsetTop]);
+
   return (
     <>
       {

@@ -1,4 +1,4 @@
-import { Vector2D } from './vector2d';
+import { Vector2D } from './Vector2d';
 
 export class SpaceCoordinate {
   viewportToWorld(viewportPoint: Vector2D, context: CanvasRenderingContext2D | DOMMatrix): Vector2D {
@@ -38,6 +38,5 @@ export class SpaceCoordinate {
     return new Vector2D(x, y);
   }
 }
-
 
 export const spaceCoordinate = new SpaceCoordinate();

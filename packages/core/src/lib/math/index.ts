@@ -1,2 +1,2 @@
-export * from './space-coordinate';
-export * from './vector2d';
+export * from './SpaceCoordinate';
+export * from './Vector2d';

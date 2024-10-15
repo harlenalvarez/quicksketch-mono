@@ -1,1 +1,1 @@
-export * from './rck-scene';
+export * from './RckScene';

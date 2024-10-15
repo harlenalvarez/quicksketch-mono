@@ -11,6 +11,8 @@ export const SceneLayersMap: Record<string, LayerWithId> = {
   }
 }
 
+export const getPixelRatio = (maintainPixelRatio?: boolean) => maintainPixelRatio ? window.devicePixelRatio : 1;
+
 export function registerSceneLayers(layers: Layers) {
   SceneLayersMap['main'] = { layerId: 'rck-canvas-main-layer-element' };
   for (const [name, layer] of Object.entries(layers)) {
@@ -26,15 +28,16 @@ export function getSceneLayerElement(name: string) {
   return document.getElementById(layer.layerId) as HTMLCanvasElement | null;
 }
 
-export function initSceneLayers(width: number, height: number) {
+export function initSceneLayers(width: number, height: number, maintainPixelRatio?: boolean) {
+  const pixelRatio = getPixelRatio(maintainPixelRatio);
   for (const name of Object.keys(SceneLayersMap)) {
     const layer = getSceneLayerElement(name);
     if (!layer) continue;
     const context = layer.getContext('2d');
     if (!context) continue;
-    layer.width = width * window.devicePixelRatio;
+    layer.width = width * pixelRatio;
     layer.style.width = `${width}px`;
-    layer.height = height * window.devicePixelRatio;
+    layer.height = height * pixelRatio;
     layer.style.height = `${height}px`;
     // here we set the transform from our transform state, but I might just reuse the default layer
   }

@@ -1,7 +1,7 @@
 import { memo, useLayoutEffect, useMemo } from 'react';
-import { clsx, getRckStyle, registerSceneLayers } from '../internal';
+import { clsx, getRckStyle, RckSettings, registerSceneLayers } from '../internal';
 import type { Layers } from '../store';
-import styles from './rck-scene.module.css';
+import styles from './RckScene.module.css';
 import { Scene } from './scene';
 
 export type RckScene = {
@@ -26,7 +26,7 @@ export type RckScene = {
   mode?: 'light' | 'dark'
 }
 
-const RckScene = memo(({ children, layers = {}, offsetTop, mode, background = 'dots', backgroundColor = 'transparent' }: RckScene) => {
+const RckScene = memo(({ children, layers = {}, offsetTop, mode, background = 'dots', backgroundColor = 'transparent', maintainAspectRatio }: RckScene) => {
   registerSceneLayers(layers);
   const fullScreenLayout = getRckStyle(offsetTop);
 
@@ -49,16 +49,18 @@ const RckScene = memo(({ children, layers = {}, offsetTop, mode, background = 'd
   const sceneStyle = useMemo(() => ({ ...fullScreenLayout, backgroundColor }), [backgroundColor, fullScreenLayout]);
 
   return (
-    <div id='rck-main-container' style={fullScreenLayout} className={styles.rckProviderLayout}>
-      <section id='rck-action-section' style={fullScreenLayout} tabIndex={0} className={styles.rckAction}>
-        {children}
-      </section>
-      <section id='rck-popover-section' style={fullScreenLayout} tabIndex={0} className={styles.rckPopover} />
-      <section id='rck-scene-section' style={sceneStyle} tabIndex={0} className={sceneClass}>
-        <Scene offsetTop={offsetTop} />
-      </section>
-      <section id='rck-portal-section' className={styles.rckPortal} />
-    </div>
+    <RckSettings.Provider value={{ maintainAspectRatio }}>
+      <div id='rck-main-container' style={fullScreenLayout} className={styles.rckProviderLayout}>
+        <section id='rck-action-section' style={fullScreenLayout} tabIndex={0} className={styles.rckAction}>
+          {children}
+        </section>
+        <section id='rck-popover-section' style={fullScreenLayout} tabIndex={0} className={styles.rckPopover} />
+        <section id='rck-scene-section' style={sceneStyle} tabIndex={0} className={sceneClass}>
+          <Scene offsetTop={offsetTop} />
+        </section>
+        <section id='rck-portal-section' className={styles.rckPortal} />
+      </div>
+    </RckSettings.Provider>
   )
 }, (prevProps: RckScene, nextProps: RckScene) => {
   // Only check for layer keys
