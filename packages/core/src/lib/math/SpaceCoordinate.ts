@@ -1,6 +1,12 @@
 import { Vector2D } from './Vector2d';
 
 export class SpaceCoordinate {
+  /**
+   * Returns the world coordinates of the viewport point
+   * @param viewportPoint 
+   * @param context - CanvasRenderingContext2D or World DOMMatrix
+   * @returns Vector2D
+   */
   viewportToWorld(viewportPoint: Vector2D, context: CanvasRenderingContext2D | DOMMatrix): Vector2D {
     const matrix = 'getTransform' in context ? context.getTransform() : context;
     const inverse = this.inverseSTOnly(matrix);
@@ -8,6 +14,12 @@ export class SpaceCoordinate {
     return point;
   }
 
+  /**
+   * Returns the viewport coordinates of the world point
+   * @param worldPoint 
+   * @param context - CanvasRenderingContext2D or World DOMMatrix
+   * @returns Vector2D
+   */
   worldToViewport(worldPoint: Vector2D, context: CanvasRenderingContext2D | DOMMatrix): Vector2D {
     const matrix = 'getTransform' in context ? context.getTransform() : context;
     const point = this.transformPoint(worldPoint, matrix);
@@ -27,8 +39,8 @@ export class SpaceCoordinate {
     const c11 = m.d / determinant; // before I was dividing by devicePixelRatio but that might not be needed since my determinant is already scaled by devicePixelRatio
     //const c22 = m.a/ devicePixelRatio / determinant; we don't skew the canvas so this is always the same as c11
 
-    const c31 = (-(m.e * m.d)) / determinant;
-    const c32 = -(m.a * m.f) / determinant;
+    const c31 = (-(m.a * m.e)) / determinant;
+    const c32 = -(m.d * m.f) / determinant;
     return new DOMMatrix([c11, 0, 0, c11, c31, c32]);
   }
 

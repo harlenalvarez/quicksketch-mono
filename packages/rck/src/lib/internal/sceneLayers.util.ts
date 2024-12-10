@@ -2,22 +2,18 @@ import { Optional } from '@practicaljs/ts-kit';
 import { Layers } from '../store';
 
 type LayerWithId = Optional<Required<Layers[string]>, 'disableSync'>;
-export const SceneLayersMap: Record<string, LayerWithId> = {
-  'main': {
-    layerId: 'rck-canvas-main-layer-element'
-  },
-  'internal': {
-    layerId: 'rck-canvas-internal-layer-element'
-  }
-}
+export const SceneLayersMap: Record<string, LayerWithId> = {};
 
 export const getPixelRatio = (maintainPixelRatio?: boolean) => maintainPixelRatio ? window.devicePixelRatio : 1;
 
 export function registerSceneLayers(layers: Layers) {
-  SceneLayersMap['main'] = { layerId: 'rck-canvas-main-layer-element' };
   for (const [name, layer] of Object.entries(layers)) {
+    if (name === 'internal' || !name) continue;
     const layerId = `rck-canvas-${name}-layer-element`;
     SceneLayersMap[name] = { ...layer, layerId };
+  }
+  if (!Object.keys(SceneLayersMap).length || !SceneLayersMap['main']) {
+    SceneLayersMap['main'] = { layerId: 'rck-canvas-main-layer-element' };
   }
   SceneLayersMap['internal'] = { layerId: 'rck-canvas-internal-layer-element' };
 }

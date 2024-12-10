@@ -8,7 +8,11 @@ export type RckScene = {
   children: React.ReactNode,
   /**
    * List of named layers that will be rendered on the canvas.
-   * layers are rendered in the order they are provided meaning the first layer will be the bottom most layer
+   * layers are rendered as a stack meaning the last layer will be render on top of the previous one.
+   * IMPORTANT: An internal and main layer are always created, the internal layer is the top most layer followed by the main layer.
+   * The main layer can be positioned by passing in a main layer in the desired place on the stack.
+   * The internal layer cannot be repositioned.
+   * example: { background: {}, main: {}, foreground: {} }
    */
   layers?: Layers,
   /**

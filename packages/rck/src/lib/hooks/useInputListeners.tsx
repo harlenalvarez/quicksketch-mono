@@ -1,5 +1,7 @@
-import { useEffect, useLayoutEffect } from 'react';
-import { keyboardEventContext } from '../utils';
+import { clamp } from '@qsketch/core';
+import { useLayoutEffect } from 'react';
+import { sceneTransform } from '../store/sceneTransform';
+import { keyboardEventContext, withLayerContext } from '../utils';
 // import { canvasTransform, getCanvas2DContext, keyboardEventContext, requestRedrawAllLayers } from '..';
 export type CanvasInteractionsProps = {
   parentRef: React.RefObject<HTMLDivElement>,
@@ -20,6 +22,7 @@ const interactionsState = new InteractionsState();
 
 /**
  * Method to control pan, zoom and scroll
+ * Only works with the main layer
  */
 export const useInputListeners = ({ parentRef, enabled }: CanvasInteractionsProps) => {
   useLayoutEffect(() => {
@@ -44,9 +47,7 @@ export const useInputListeners = ({ parentRef, enabled }: CanvasInteractionsProp
   }, [parentRef, enabled])
 }
 
-const onScroll = (ev: WheelEvent) => {
-  const ctx = getCanvas2DContext();
-  if (!ctx) return;
+const onScroll = withLayerContext((ctx: CanvasRenderingContext2D, ev: WheelEvent) => {
   ev.stopPropagation();
   ev.preventDefault();
 
@@ -54,10 +55,10 @@ const onScroll = (ev: WheelEvent) => {
     scrollOrPinchScale(ev)
   }
   else {
-    canvasTransform.changeOffset(ev.deltaX, ev.deltaY);
+    sceneTransform.changeOffset(ev.deltaX, ev.deltaY);
     requestRedrawAllLayers();
   }
-}
+})
 
 const onMouseClick = (ev: MouseEvent) => {
   if (ev.button === 1 || (ev.button === 0 && keyboardEventContext.Space)) {
@@ -85,7 +86,7 @@ const onCanvasDrag = (ev: MouseEvent) => {
   ev.stopPropagation();
   const deltaX = ev.movementX * devicePixelRatio;
   const deltaY = ev.movementY * devicePixelRatio;
-  canvasTransform.changeOffset(-deltaX, -deltaY);
+  sceneTransform.changeOffset(-deltaX, -deltaY);
   requestRedrawAllLayers();
 }
 
@@ -138,9 +139,7 @@ const preventOnPanning = (ev: MouseEvent) => {
  * Changes 
  * @param value 
  */
-const changeScale = (value: number, x?: number, y?: number) => {
-  const ctx = getCanvas2DContext();
-  if (!ctx) return;
-  canvasTransform.changeScale(value, ctx, x, y);
+const changeScale = withLayerContext((ctx, value: number, x?: number, y?: number) => {
+  sceneTransform.changeScale(value, ctx, x, y);
   requestRedrawAllLayers();
-}
+})
