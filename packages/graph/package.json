@@ -1,0 +1,23 @@
+{
+  "name": "@qsketch/graph",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Harlen Alvarez",
+    "email": "harlenalvarez@gmail.com",
+    "url": "https://github.com/harlenalvarez"
+  },
+  "description": "JS Graph data structures, algorithms and utilities",
+  "dependencies": {},
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "main": "./index.js",
+  "module": "./index.js",
+  "typings": "./index.d.ts"
+}

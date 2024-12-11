@@ -1,4 +1,4 @@
-import { PriorityQueue } from '@practicaljs/priority-queue';
+import { PriorityQueue } from '@qsketch/graph';
 import { Vector2D, clamp, spaceCoordinate } from '@qsketch/core';
 
 type SceneTransformSnapshot = {
