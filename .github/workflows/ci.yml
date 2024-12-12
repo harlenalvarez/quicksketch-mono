@@ -29,3 +29,4 @@ jobs:
 
       - run: npx nx test ss-router
       - run: npx nx test core
+      - run: npx nx test graph
