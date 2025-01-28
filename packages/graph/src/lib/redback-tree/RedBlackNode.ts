@@ -4,11 +4,11 @@ export class RedBlackNode<T> {
   public right: RedBlackNode<T> = RedBlackNode.sentinel;
   public parent: RedBlackNode<T> = RedBlackNode.sentinel;
   public value: T | null = null;
-  public key: number = 0;
+  public rank: number = 0;
   public color: 'black' | 'red' = 'black';
 
-  constructor(value: T, key: number) {
+  constructor(value: T, rank: number) {
     this.value = value;
-    this.key = key;
+    this.rank = rank;
   }
 }
